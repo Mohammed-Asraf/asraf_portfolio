@@ -23,7 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body 
         className={`${poppins.className} text-white antialiased min-h-screen`}
-        style={{ background: 'linear-gradient(to bottom right, #003380, #2832c2)' }}
+        style={{ background: 'linear-gradient(to bottom right, #83B81A, #83B81A)' }}
       >
         <CursorAura /> {/* Add the aura component */}
         {children}
