@@ -56,7 +56,7 @@ const Hero = () => {
                 Portfolio
               </Link>
               <Link href="/#contact" className="bg-white/10 text-white font-semibold py-3 px-8 rounded-full shadow-lg transform hover:scale-105 transition-transform duration-300 border border-white/30">
-                Hire Me
+                Let's Collaborate
               </Link>
             </div>
           </div>
