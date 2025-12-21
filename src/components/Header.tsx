@@ -58,7 +58,7 @@ const Header = () => {
               </Link>
             </li>
             <li>
-              <Link href="/#details" className="font-medium hover:bg-white/20 transition-colors duration-300 block py-2 px-4">
+              <Link href="/#details" className="bg-white/10 rounded-full font-medium hover:bg-white/20 transition-colors duration-300 block py-2 px-4">
                 Projects
               </Link>
             </li>
