@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { FaLinkedin, FaEnvelope } from 'react-icons/fa';
+import { FaLinkedin, FaEnvelope, FaGithub } from 'react-icons/fa';
 
 const Contact = () => {
   return (
@@ -22,6 +22,15 @@ const Contact = () => {
               <p className="font-semibold text-white">Connect on LinkedIn:</p>
               <Link href="https://www.linkedin.com/in/mohammed-asraf/" target="_blank" rel="noopener noreferrer" className="text-gray-200 hover:text-primary transition-colors duration-300">
                 Mohammed Asraf S
+              </Link>
+            </div>
+          </div>
+          <div className="flex flex-col items-center space-y-3 bg-white/10 backdrop-blur-md p-6 rounded-xl border border-white/20 shadow-lg transform hover:scale-105 transition-transform duration-300">
+            <FaGithub className="text-primary text-4xl" />
+            <div className="text-lg text-center">
+              <p className="font-semibold text-white">Find me on GitHub:</p>
+              <Link href="https://github.com/Mohammed-Asraf" target="_blank" rel="noopener noreferrer" className="text-gray-200 hover:text-primary transition-colors duration-300">
+                Mohammed-Asraf
               </Link>
             </div>
           </div>
