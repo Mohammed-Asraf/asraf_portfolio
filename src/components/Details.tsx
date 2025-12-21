@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import useMediaQuery from '../hooks/useMediaQuery';
+import { FaChevronDown } from 'react-icons/fa';
 
 // Data for Experience section
 const experienceData = [
@@ -67,62 +69,165 @@ const educationData = [
 ];
 
 // Content-specific components
-const ExperienceContent = () => (
-  <div className="max-w-4xl mx-auto space-y-8">
-    {experienceData.map((job, index) => (
-      <div key={index} className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 shadow-lg">
-        <div className="flex justify-between items-start mb-4">
-          <div>
-            <h3 className="text-2xl font-semibold text-white">{job.title}</h3>
-            <p className="text-lg text-gray-200">{job.company} - {job.location}</p>
+const ExperienceContent = () => {
+  const isMobile = useMediaQuery('(max-width: 767px)');
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const handleToggle = (index: number) => {
+    if (isMobile) {
+      setOpenIndex(openIndex === index ? null : index);
+    }
+  };
+  
+  return (
+    <div className="max-w-4xl mx-auto space-y-8">
+      {experienceData.map((job, index) => (
+        <div 
+          key={index} 
+          className={`bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 shadow-lg overflow-hidden ${isMobile ? 'cursor-pointer' : ''}`}
+          onClick={() => handleToggle(index)}
+        >
+          <div className="flex justify-between items-start mb-4">
+            <div className="flex-1">
+              <h3 className="text-2xl font-semibold text-white">{job.title}</h3>
+              <p className="text-lg text-gray-200">{job.company} - {job.location}</p>
+            </div>
+            <div className="text-right ml-4">
+              <p className="text-md text-gray-300 flex-shrink-0">{job.date}</p>
+              {isMobile && (
+                <FaChevronDown className={`mt-2 text-white transition-transform duration-300 ${openIndex === index ? 'rotate-180' : ''}`} />
+              )}
+            </div>
           </div>
-          <p className="text-md text-gray-300 flex-shrink-0 ml-4">{job.date}</p>
+          {(!isMobile || openIndex === index) && (
+            <ul className="list-disc list-inside space-y-2 text-md text-gray-300 mt-4 animate-fade-in">
+              {job.description.map((point, i) => (
+                <li key={i}>{point}</li>
+              ))}
+            </ul>
+          )}
         </div>
-        <ul className="list-disc list-inside space-y-2 text-md text-gray-300">
-          {job.description.map((point, i) => (
-            <li key={i}>{point}</li>
-          ))}
-        </ul>
-      </div>
-    ))}
-  </div>
-);
+      ))}
+       <style jsx>{`
+        .animate-fade-in {
+          animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(-10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
+    </div>
+  );
+};
 
-const ProjectsContent = () => (
-  <div className="max-w-4xl mx-auto space-y-8">
-    {projectsData.map((project, index) => (
-      <div key={index} className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 shadow-lg">
-        <h3 className="text-2xl font-semibold text-white mb-2">{project.title}</h3>
-        <p className="text-md text-gray-300 mb-4">{project.year}</p>
-        <div className="flex flex-wrap gap-2 mb-4">
-          {project.technologies.map((tech) => (
-            <span key={tech} className="bg-white/20 text-white px-3 py-1 rounded-full text-sm font-medium">
-              {tech}
-            </span>
-          ))}
+const ProjectsContent = () => {
+  const isMobile = useMediaQuery('(max-width: 767px)');
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const handleToggle = (index: number) => {
+    if (isMobile) {
+      setOpenIndex(openIndex === index ? null : index);
+    }
+  };
+
+  return (
+    <div className="max-w-4xl mx-auto space-y-8">
+      {projectsData.map((project, index) => (
+         <div 
+          key={index} 
+          className={`bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 shadow-lg overflow-hidden ${isMobile ? 'cursor-pointer' : ''}`}
+          onClick={() => handleToggle(index)}
+        >
+          <div className="flex justify-between items-start mb-2">
+            <h3 className="text-2xl font-semibold text-white">{project.title}</h3>
+            {isMobile ? (
+               <FaChevronDown className={`text-white transition-transform duration-300 ${openIndex === index ? 'rotate-180' : ''}`} />
+            ) : (
+              <p className="text-md text-gray-300">{project.year}</p>
+            )}
+          </div>
+           {(!isMobile || openIndex === index) && (
+            <div className="animate-fade-in">
+              {!isMobile && <p className="text-md text-gray-300 mb-4">{project.year}</p>}
+               <div className="flex flex-wrap gap-2 mb-4">
+                {project.technologies.map((tech) => (
+                  <span key={tech} className="bg-white/20 text-white px-3 py-1 rounded-full text-sm font-medium">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+              <ul className="list-disc list-inside space-y-2 text-md text-gray-300 flex-grow">
+                {project.description.map((point, i) => (
+                  <li key={i}>{point}</li>
+                ))}
+              </ul>
+            </div>
+           )}
         </div>
-        <ul className="list-disc list-inside space-y-2 text-md text-gray-300 flex-grow">
-          {project.description.map((point, i) => (
-            <li key={i}>{point}</li>
-          ))}
-        </ul>
-      </div>
-    ))}
-  </div>
-);
+      ))}
+      <style jsx>{`
+        .animate-fade-in {
+          animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(-10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
+    </div>
+  );
+};
 
-const EducationContent = () => (
-  <div className="max-w-4xl mx-auto space-y-8">
-    {educationData.map((edu, index) => (
-      <div key={index} className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 shadow-lg">
-        <h3 className="text-2xl font-semibold text-white mb-2">{edu.degree}</h3>
-        <p className="text-lg text-gray-200">{edu.institution}</p>
-        <p className="text-md text-gray-300">{edu.year}</p>
-        {edu.gpa && <p className="text-md text-gray-300">GPA: {edu.gpa}</p>}
-      </div>
-    ))}
-  </div>
-);
+const EducationContent = () => {
+  const isMobile = useMediaQuery('(max-width: 767px)');
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const handleToggle = (index: number) => {
+    if (isMobile) {
+      setOpenIndex(openIndex === index ? null : index);
+    }
+  };
+  
+  return (
+    <div className="max-w-4xl mx-auto space-y-8">
+      {educationData.map((edu, index) => (
+        <div 
+          key={index} 
+          className={`bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 shadow-lg overflow-hidden ${isMobile ? 'cursor-pointer' : ''}`}
+          onClick={() => handleToggle(index)}
+        >
+           <div className="flex justify-between items-start mb-2">
+            <div>
+              <h3 className="text-2xl font-semibold text-white">{edu.degree}</h3>
+            </div>
+             {isMobile && (
+              <FaChevronDown className={`text-white transition-transform duration-300 ${openIndex === index ? 'rotate-180' : ''}`} />
+            )}
+          </div>
+          
+           {(!isMobile || openIndex === index) && (
+             <div className="animate-fade-in">
+              <p className="text-lg text-gray-200">{edu.institution}</p>
+              <p className="text-md text-gray-300">{edu.year}</p>
+              {edu.gpa && <p className="text-md text-gray-300">GPA: {edu.gpa}</p>}
+            </div>
+           )}
+        </div>
+      ))}
+       <style jsx>{`
+        .animate-fade-in {
+          animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(-10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
+    </div>
+  );
+};
+
 
 // Main Details component
 const Details = () => {
@@ -146,12 +251,12 @@ const Details = () => {
   return (
     <section id="details" className="py-16 bg-gradient-to-br from-brand-blue to-brand-blue-dark text-white">
       <div className="container mx-auto px-4">
-        <div className="flex justify-center border-b-2 border-white/20 mb-8">
+        <div className="flex justify-center border-b-2 border-white/20 mb-8 overflow-x-auto">
           {tabs.map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`relative group px-8 py-3 text-lg font-semibold transition-all duration-300 focus:outline-none 
+              className={`relative group px-6 md:px-8 py-3 text-lg font-semibold transition-all duration-300 focus:outline-none flex-shrink-0 
                 ${activeTab === tab 
                   ? 'text-white' 
                   : 'text-gray-300 hover:text-white group-hover:scale-105'
