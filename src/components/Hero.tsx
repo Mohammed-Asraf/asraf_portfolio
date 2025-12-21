@@ -19,9 +19,6 @@ const Hero = () => {
             from { transform: rotate(360deg); }
             to { transform: rotate(0deg); }
           }
-          .animate-spin-reverse {
-            animation: spin-reverse 10s linear infinite;
-          }
           @keyframes pulse-ring {
             0%, 100% {
               transform: scale(0.95);
@@ -32,8 +29,14 @@ const Hero = () => {
               opacity: 0.9;
             }
           }
-          .animate-pulse-ring {
-            animation: pulse-ring 7s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+          /* Apply animations only on large screens */
+          @media (min-width: 1024px) {
+            .animate-spin-reverse {
+              animation: spin-reverse 10s linear infinite;
+            }
+            .animate-pulse-ring {
+              animation: pulse-ring 7s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            }
           }
         `}
       </style>
@@ -80,8 +83,8 @@ const Hero = () => {
             
             {/* Container for Rotating & Pulsing Rings */}
             <div className="absolute top-1/2 left-1/2 w-[32rem] h-[32rem] -translate-x-1/2 -translate-y-1/2 z-0">
-              <div className="absolute inset-4 rounded-full border-2 border-white/10 lg:motion-safe:animate-spin-reverse lg:animate-pulse-ring"></div>
-              <div className="absolute inset-0 rounded-full border-2 border-white/10 lg:motion-safe:animate-spin-slow lg:animate-pulse-ring"></div>
+              <div className="absolute inset-4 rounded-full border-2 border-white/10 motion-safe:animate-spin-reverse motion-safe:animate-pulse-ring"></div>
+              <div className="absolute inset-0 rounded-full border-2 border-white/10 motion-safe:animate-spin-slow motion-safe:animate-pulse-ring"></div>
             </div>
           </div>
         </div>
