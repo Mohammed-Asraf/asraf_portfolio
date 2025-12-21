@@ -31,38 +31,6 @@ const experienceData = [
   },
 ];
 
-// Data for Projects section
-const projectsData = [
-  {
-    title: "SAP Enable Now & SAP S/4HANA Implementation",
-    year: "2025",
-    technologies: ["SAP Enable Now", "SAP S/4HANA"],
-    description: [
-      "Led content development and training strategy for the new SAP S/4HANA 2025 system using SAP Enable Now.",
-      "Created interactive simulations and e-learning modules to ensure smooth user adoption across the enterprise.",
-      "Collaborated with functional teams to translate complex business processes into clear and effective training materials."
-    ],
-  },
-  {
-    title: "AI Product Development",
-    year: "Ongoing",
-    technologies: ["Python", "AI/ML APIs", "Azure", "Google Cloud Platform", "Git"],
-    description: [
-      "Designed feature architecture and technical implementation workflows for AI-driven educational product with focus on scalability, performance optimization achieving 30 percent faster response times, and enhanced user experience.",
-      "Integrated AI and ML components including natural language processing and machine learning models into cloud-based architectures using Azure Machine Learning and Google Cloud AI Platform serving 500+ users.",
-    ],
-  },
-  {
-    title: "Securing Multi-Cloud Environment",
-    year: "2024",
-    technologies: ["Microsoft Azure", "Google Cloud Platform", "Security Architecture"],
-    description: [
-      "Investigated comprehensive security challenges, threat models, and compliance considerations (GDPR, SOC 2, ISO 27001) across multi-cloud environments.",
-      "Evaluated industry best practices for securing workloads including identity and access management, network segmentation, encryption at rest and in transit, and defense-in-depth security strategies.",
-    ],
-  },
-];
-
 // Data for Education section
 const educationData = [
   {
@@ -131,64 +99,6 @@ const ExperienceContent = () => {
   );
 };
 
-const ProjectsContent = () => {
-  const isMobile = useMediaQuery('(max-width: 767px)');
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
-
-  const handleToggle = (index: number) => {
-    if (isMobile) {
-      setOpenIndex(openIndex === index ? null : index);
-    }
-  };
-
-  return (
-    <div className="max-w-4xl mx-auto space-y-8">
-      {projectsData.map((project, index) => (
-         <div 
-          key={index} 
-          className={`bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 shadow-lg overflow-hidden ${isMobile ? 'cursor-pointer' : ''}`}
-          onClick={() => handleToggle(index)}
-        >
-          <div className="flex justify-between items-start mb-2">
-            <h3 className="text-2xl font-semibold text-white">{project.title}</h3>
-            {isMobile ? (
-               <FaChevronDown className={`text-white transition-transform duration-300 ${openIndex === index ? 'rotate-180' : ''}`} />
-            ) : (
-              <p className="text-md text-gray-300">{project.year}</p>
-            )}
-          </div>
-           {(!isMobile || openIndex === index) && (
-            <div className="animate-fade-in">
-              {!isMobile && <p className="text-md text-gray-300 mb-4">{project.year}</p>}
-               <div className="flex flex-wrap gap-2 mb-4">
-                {project.technologies.map((tech) => (
-                  <span key={tech} className="bg-white/20 text-white px-3 py-1 rounded-full text-sm font-medium">
-                    {tech}
-                  </span>
-                ))}
-              </div>
-              <ul className="list-disc list-inside space-y-2 text-md text-gray-300 flex-grow">
-                {project.description.map((point, i) => (
-                  <li key={i}>{point}</li>
-                ))}
-              </ul>
-            </div>
-           )}
-        </div>
-      ))}
-      <style jsx>{`
-        .animate-fade-in {
-          animation: fadeIn 0.5s ease-in-out;
-        }
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(-10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
-    </div>
-  );
-};
-
 const EducationContent = () => {
   const isMobile = useMediaQuery('(max-width: 767px)');
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -243,14 +153,12 @@ const EducationContent = () => {
 const Details = () => {
   const [activeTab, setActiveTab] = useState('Experience');
 
-  const tabs = ['Experience', 'Projects', 'Education'];
+  const tabs = ['Experience', 'Education'];
 
   const renderContent = () => {
     switch (activeTab) {
       case 'Experience':
         return <ExperienceContent />;
-      case 'Projects':
-        return <ProjectsContent />;
       case 'Education':
         return <EducationContent />;
       default:

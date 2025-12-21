@@ -52,7 +52,7 @@ const Hero = () => {
               AI Developer & Cloud Engineer who builds intelligent, scalable, and secure systems from the ground up.
             </p>
             <div className="flex items-center justify-center md:justify-start gap-4">
-              <Link href="/#projects" className="bg-white/20 text-white font-semibold py-3 px-8 rounded-full shadow-lg transform hover:scale-105 transition-transform duration-300 border border-white/30">
+              <Link href="/projects" className="bg-white/20 text-white font-semibold py-3 px-8 rounded-full shadow-lg transform hover:scale-105 transition-transform duration-300 border border-white/30">
                 Proven Solutions
               </Link>
               <Link href="/#contact" className="bg-white/10 text-white font-semibold py-3 px-8 rounded-full shadow-lg transform hover:scale-105 transition-transform duration-300 border border-white/30">
