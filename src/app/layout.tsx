@@ -20,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <body 
         className={`${poppins.className} text-white antialiased min-h-screen`}
         style={{ background: 'linear-gradient(to bottom right, #4D4DFF, #1E90FF)' }}
