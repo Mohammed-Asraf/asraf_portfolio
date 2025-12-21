@@ -1,12 +1,25 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import SkillsPopup from './SkillsPopup';
+import { FaBars, FaTimes } from 'react-icons/fa';
 
 const Header = () => {
   const [isSkillsPopupOpen, setSkillsPopupOpen] = useState(false);
+  const [isMenuOpen, setMenuOpen] = useState(false);
+
+  // Close mobile menu on resize to desktop
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setMenuOpen(false);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <>
@@ -21,6 +34,8 @@ const Header = () => {
               height={40}
             />
           </Link>
+
+          {/* Desktop Navigation */}
           <ul className="hidden md:flex items-center space-x-2">
             <li>
               <Link href="/" className="bg-white/10 rounded-full font-medium hover:bg-white/20 transition-colors duration-300 block py-2 px-4">
@@ -43,7 +58,7 @@ const Header = () => {
               </Link>
             </li>
             <li>
-              <Link href="/#details" className="bg-white/10 rounded-full font-medium hover:bg-white/20 transition-colors duration-300 block py-2 px-4">
+              <Link href="/#details" className="font-medium hover:bg-white/20 transition-colors duration-300 block py-2 px-4">
                 Projects
               </Link>
             </li>
@@ -53,8 +68,52 @@ const Header = () => {
               Contact Me
             </Link>
           </div>
-          {/* Mobile menu button will be needed here for a truly responsive site */}
+
+          {/* Mobile Menu Button */}
+          <div className="md:hidden">
+            <button onClick={() => setMenuOpen(!isMenuOpen)} className="text-2xl">
+              {isMenuOpen ? <FaTimes /> : <FaBars />}
+            </button>
+          </div>
         </nav>
+
+        {/* Mobile Menu Panel */}
+        {isMenuOpen && (
+          <div className="md:hidden bg-cobalt-dark/90 backdrop-blur-sm absolute top-full left-0 w-full">
+            <ul className="flex flex-col items-center space-y-4 p-4">
+              <li>
+                <Link href="/" onClick={() => setMenuOpen(false)} className="hover:text-primary transition-colors duration-300 block py-2">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link href="/#about" onClick={() => setMenuOpen(false)} className="hover:text-primary transition-colors duration-300 block py-2">
+                  About
+                </Link>
+              </li>
+              <li>
+                <button onClick={() => { setSkillsPopupOpen(true); setMenuOpen(false); }} className="hover:text-primary transition-colors duration-300 block py-2">
+                  Skills
+                </button>
+              </li>
+              <li>
+                <Link href="/#details" onClick={() => setMenuOpen(false)} className="hover:text-primary transition-colors duration-300 block py-2">
+                  Experience
+                </Link>
+              </li>
+              <li>
+                <Link href="/#details" onClick={() => setMenuOpen(false)} className="hover:text-primary transition-colors duration-300 block py-2">
+                  Projects
+                </Link>
+              </li>
+              <li>
+                 <Link href="/#contact" onClick={() => setMenuOpen(false)} className="bg-primary text-white px-6 py-2 rounded-full font-semibold hover:bg-primary-dark transition-colors duration-300 mt-4 block">
+                  Contact Me
+                </Link>
+              </li>
+            </ul>
+          </div>
+        )}
       </header>
     </>
   );
