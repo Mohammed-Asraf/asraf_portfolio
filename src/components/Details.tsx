@@ -34,6 +34,16 @@ const experienceData = [
 // Data for Projects section
 const projectsData = [
   {
+    title: "SAP Enable Now & SAP S/4HANA Implementation",
+    year: "2025",
+    technologies: ["SAP Enable Now", "SAP S/4HANA"],
+    description: [
+      "Led content development and training strategy for the new SAP S/4HANA 2025 system using SAP Enable Now.",
+      "Created interactive simulations and e-learning modules to ensure smooth user adoption across the enterprise.",
+      "Collaborated with functional teams to translate complex business processes into clear and effective training materials."
+    ],
+  },
+  {
     title: "AI Product Development",
     year: "Ongoing",
     technologies: ["Python", "AI/ML APIs", "Azure", "Google Cloud Platform", "Git"],
