@@ -83,8 +83,8 @@ const Hero = () => {
             
             {/* Container for Rotating & Pulsing Rings */}
             <div className="absolute top-1/2 left-1/2 w-[32rem] h-[32rem] -translate-x-1/2 -translate-y-1/2 z-0">
-              <div className="absolute inset-4 rounded-full border-2 border-white/10 motion-safe:animate-spin-reverse motion-safe:animate-pulse-ring"></div>
-              <div className="absolute inset-0 rounded-full border-2 border-white/10 motion-safe:animate-spin-slow motion-safe:animate-pulse-ring"></div>
+              <div className="absolute inset-4 rounded-full border-2 border-white/10 animate-spin-reverse animate-pulse-ring"></div>
+              <div className="absolute inset-0 rounded-full border-2 border-white/10 animate-spin-slow animate-pulse-ring"></div>
             </div>
           </div>
         </div>
