@@ -43,8 +43,8 @@ const Hero = () => {
       <section className="relative py-20 px-4 min-h-[calc(100vh-80px)] flex items-center">
         <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center bg-white/10 lg:backdrop-blur-md p-8 rounded-xl border border-white/20 shadow-lg">
           {/* Left Side: Text Content */}
-          <div className="text-center md:text-left text-white">
-            <p className="text-primary font-semibold text-lg mb-2 flex items-center justify-center md:justify-start">
+          <div className="text-left text-white">
+            <p className="text-primary font-semibold text-lg mb-2 flex items-center justify-start">
               <span className="w-8 h-px bg-primary mr-2 align-middle"></span>
               Hello There!
             </p>
